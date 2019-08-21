@@ -68,6 +68,25 @@ function createSearchForm() {
   `
 }
 
+/**
+ * Hide all employee cards
+*/
+function hideAllEmployees() {
+  document.querySelectorAll('.card').forEach(i => i.style.display = 'none');
+}
+
+/**
+ * Search employees by text content of cards
+*/
+function searchEmployees(e) {
+  hideAllEmployees();
+  document.querySelectorAll('.card').forEach(i => {
+    if (i.textContent.toLowerCase().includes(e.target.value.toLowerCase())) {
+      i.style.display = '';
+    }
+  })
+}
+
 /** Create employee directory*/
 function main() {
   const divCardContainer = document.querySelector('#gallery');
@@ -86,6 +105,8 @@ function main() {
   // add search form
   searchContainer.innerHTML += createSearchForm();
   const searchForm = searchContainer.firstElementChild;
+  searchForm.addEventListener('keyup', searchEmployees);
+  searchForm.addEventListener('submit', searchEmployees);
 }
 
 main();
