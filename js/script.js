@@ -55,11 +55,26 @@ function createDivCard({name, location, email, picture}) {
   `;
 }
 
+/** 
+ * Create a search form for finding employees
+ * @return {string}
+*/
+function createSearchForm() {
+  return `
+  <form action="#" method="get">
+      <input type="search" id="search-input" class="search-input" placeholder="Search...">
+      <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
+  </form>
+  `
+}
+
 /** Create employee directory*/
 function main() {
+  const divCardContainer = document.querySelector('#gallery');
+  const searchContainer = document.querySelector('.search-container');
+
   asyncWrapper(
     (async () => {
-      const divCardContainer = document.querySelector('#gallery');
       const data = await getEmployeeData();
       // concat new employee div-card to container
       data.forEach(i => {
@@ -67,6 +82,10 @@ function main() {
       })
     })()
   );
+
+  // add search form
+  searchContainer.innerHTML += createSearchForm();
+  const searchForm = searchContainer.firstElementChild;
 }
 
 main();
