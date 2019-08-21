@@ -6,6 +6,7 @@ const apiBase = 'https://randomuser.me/api',
 /** 
  * Wrap any async function in try-catch block.
  * @param {function} cb - async function
+ * @return {function} 
 */
 async function asyncWrapper(cb) {
   return async _ => {
