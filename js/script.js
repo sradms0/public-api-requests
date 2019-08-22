@@ -3,6 +3,8 @@ const apiBase = 'https://randomuser.me/api',
       nat = 'us',
       results = '12';
 
+const employees = [];
+
 /** 
  * Wrap any async function in try-catch block.
  * @param {function} cb - async function
@@ -96,7 +98,8 @@ function main() {
     (async () => {
       const data = await getEmployeeData();
       // concat new employee div-card to container
-      data.forEach(i => {
+      data.forEach((i) => {
+        employees.push(i);
         divCardContainer.innerHTML += createDivCard(i);
       })
     })()
