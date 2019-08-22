@@ -39,12 +39,12 @@ async function getEmployeeData() {
  * @param {string} employee.picture - An array of pictures of the employee
  * @return {string} 
 */
-function createDivCard({name, location, email, picture}) {
+function createDivCard({name, location, email, picture}, id) {
   const {first, last} = name,
         {city, state, postcode} = location,
         {medium} = picture;
   return `
-    <div class="card">
+    <div class="card" id="${id}">
         <div class="card-img-container">
             <img class="card-img" src="${medium}" alt="profile picture">
         </div>
@@ -98,9 +98,9 @@ function main() {
     (async () => {
       const data = await getEmployeeData();
       // concat new employee div-card to container
-      data.forEach((i) => {
-        employees.push(i);
-        divCardContainer.innerHTML += createDivCard(i);
+      data.forEach((dat, i) => {
+        employees.push(dat);
+        divCardContainer.innerHTML += createDivCard(dat, i);
       })
     })()
   );
