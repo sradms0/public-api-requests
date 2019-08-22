@@ -36,7 +36,8 @@ async function getEmployeeData() {
  * @param {string} employee.name - The name of the employee
  * @param {object} employee.location - The location of the employee
  * @param {string} employee.email - The name of the employee
- * @param {string} employee.picture - An array of pictures of the employee
+ * @param {object} employee.picture - An array of pictures of the employee
+ * @param {int} id - An id for the id attribute of the div card
  * @return {string} 
 */
 function createDivCard({name, location, email, picture}, id) {
