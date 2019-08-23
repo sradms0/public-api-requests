@@ -120,9 +120,13 @@ function hideAllEmployees() {
  * Search employees by text content of cards
 */
 function searchEmployees(e) {
+  let input = e.target;
+
+  if (e.target.tagName === 'FORM') input = e.target.firstElementChild;
+
   hideAllEmployees();
   document.querySelectorAll('.card').forEach(i => {
-    if (i.textContent.toLowerCase().includes(e.target.value.toLowerCase())) {
+    if (i.textContent.toLowerCase().includes(input.value.toLowerCase())) {
       i.style.display = '';
     }
   })
