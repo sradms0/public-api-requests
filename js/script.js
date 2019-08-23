@@ -133,26 +133,52 @@ function searchEmployees(e) {
  * @param {object} e - The event triggered
 */
 function modalizeEmployee(e) {
-    const employeeDivCard = e.target.closest('.card')
-    // check if the card or any elements in the card were selected
-    if (employeeDivCard) {
-      const {id} = employeeDivCard;
-      // get employee object from 'employees' array
-      const employeeData = employees[id];
 
-      // create modal and pass all data to it
+  const addListeners = modalDivContainer => {
+    // allow modal to close
+    modalDivContainer.querySelector('#modal-close-btn')
+      .addEventListener('click', e => document.body.removeChild(modalDivContainer));
 
-      const modalDivContainer = document.createElement('div');
-      modalDivContainer.className = 'modal-container';
-      modalDivContainer.innerHTML = createModalDiv(employeeData, id);
+    // allow modal to navigate
+    modalDivContainer.querySelector('.modal-btn-container')
+      .addEventListener('click', e => {
+        if (e.target.tagName === 'BUTTON') {
+          const {className} = e.target;
+          let id = parseInt(modalDivContainer.firstElementChild.id);
 
-      // allow modal to close
-      modalDivContainer.querySelector('#modal-close-btn')
-        .addEventListener('click', e => document.body.removeChild(modalDivContainer));
+          // enable 'circular navigation'
+          if (className === 'modal-next btn') {
+            if (id === employees.length-1) id = 0;
+            else id++;
+          } else if(className === 'modal-prev btn') {
+            if (id === 0) id = employees.length-1;
+            else id--;
+          }
+            
+          // load next employee and add listeners (account for innerHTML side effect)
+          modalDivContainer.innerHTML = createModalDiv(employees[id], id);
+          return addListeners(modalDivContainer);
+        }
+      });
+  }
 
-      // add modal to display
-      document.body.append(modalDivContainer);
-    }
+  const employeeDivCard = e.target.closest('.card')
+  // check if the card or any elements in the card were selected
+  if (employeeDivCard) {
+    const {id} = employeeDivCard;
+    // get employee object from 'employees' array
+    const employeeData = employees[id];
+
+    // create modal and pass all data to it
+
+    const modalDivContainer = document.createElement('div');
+    modalDivContainer.className = 'modal-container';
+    modalDivContainer.innerHTML = createModalDiv(employeeData, id);
+
+    addListeners(modalDivContainer);
+    // add modal to display
+    document.body.append(modalDivContainer);
+  }
 }
 
 /** Create employee directory*/
