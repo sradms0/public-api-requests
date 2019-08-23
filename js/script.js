@@ -71,7 +71,7 @@ function createSearchForm() {
   `
 }
 /**
- * Create  modal container to display detailed employee-data
+ * Create  modal windo to display detailed employee-data
  * @param {object} employee - The employee to be displayed
  * @param {string} employee.name - The name of the employee
  * @param {object} employee.location - The location of the employee
@@ -79,34 +79,32 @@ function createSearchForm() {
  * @param {object} employee.picture - An array of pictures of the employee
  * @param {string} employee.phone - The phone number of the employee
  * @param {object} employee.dob - The employee's date of birth
+ * @param {int} id - An id for the id attribute of the div card
  * @return {string}
 */
-function createModalDivContainer({name, location, email, picture, phone, dob}) {
+function createModalDiv({name, location, email, picture, phone, dob}, id) {
   const {first, last} = name,
         {city, state, street, postcode} = location,
         {large} = picture,
         {date} = dob;
 
-
   return `
-    <div class="modal-container">
-        <div class="modal">
-            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-            <div class="modal-info-container">
-                <img class="modal-img" src="${large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${first} ${last}</h3>
-                <p class="modal-text">${email}</p>
-                <p class="modal-text cap">${city}</p>
-                <hr>
-                <p class="modal-text">${phone}</p>
-                <p class="modal-text">${street}, ${city}, ${state} ${postcode}</p>
-                <p class="modal-text">Birthday: ${new Date(date).toLocaleDateString()}</p>
-            </div>
+    <div class="modal" id=${id}>
+        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+        <div class="modal-info-container">
+            <img class="modal-img" src="${large}" alt="profile picture">
+            <h3 id="name" class="modal-name cap">${first} ${last}</h3>
+            <p class="modal-text">${email}</p>
+            <p class="modal-text cap">${city}</p>
+            <hr>
+            <p class="modal-text">${phone}</p>
+            <p class="modal-text">${street}, ${city}, ${state} ${postcode}</p>
+            <p class="modal-text">Birthday: ${new Date(date).toLocaleDateString()}</p>
         </div>
-        <div class="modal-btn-container">
-            <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-            <button type="button" id="modal-next" class="modal-next btn">Next</button>
-        </div>
+    </div>
+    <div class="modal-btn-container">
+        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+        <button type="button" id="modal-next" class="modal-next btn">Next</button>
     </div>
   `;
 }
@@ -138,12 +136,15 @@ function modalizeEmployee(e) {
     const employeeDivCard = e.target.closest('.card')
     // check if the card or any elements in the card were selected
     if (employeeDivCard) {
+      const {id} = employeeDivCard;
       // get employee object from 'employees' array
-      const employeeData = employees[employeeDivCard.id]
+      const employeeData = employees[id];
 
       // create modal and pass all data to it
+
       const modalDivContainer = document.createElement('div');
-      modalDivContainer.innerHTML = createModalDivContainer(employeeData);
+      modalDivContainer.className = 'modal-container';
+      modalDivContainer.innerHTML = createModalDiv(employeeData, id);
 
       // allow modal to close
       modalDivContainer.querySelector('#modal-close-btn')
