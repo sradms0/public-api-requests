@@ -82,16 +82,28 @@
   }
 
   function searchEmployees(e) {
-    let input = e.target;
+    let input = e.target, 
+        found = 0,
+        notFoundH3 = document.querySelector('.no-results');
 
     if (e.target.tagName === 'FORM') input = e.target.firstElementChild;
+
+    if (notFoundH3) document.body.removeChild(notFoundH3);
 
     hideAllEmployees();
     document.querySelectorAll('.card').forEach(i => {
       if (i.textContent.toLowerCase().includes(input.value.toLowerCase())) {
         i.style.display = '';
+        found++;
       }
-    })
+    });
+
+    if (found === 0) {
+      notFoundH3 = document.createElement('h3');
+      notFoundH3.textContent = 'No Results...';
+      notFoundH3.className = 'no-results';
+      document.body.appendChild(notFoundH3);
+    }
   }
 
   function modalizeEmployee(e) {
