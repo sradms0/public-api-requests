@@ -83,16 +83,17 @@ function createSearchForm() {
  * @return {string}
 */
 function createModalDiv({name, location, email, picture, phone, dob}, id) {
+  // use medium img to avoid high-quality img lagging during fetch time
   const {first, last} = name,
         {city, state, street, postcode} = location,
-        {large} = picture,
+        {medium} = picture,
         {date} = dob;
 
   return `
     <div class="modal" id=${id}>
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
         <div class="modal-info-container">
-            <img class="modal-img" src="${large}" alt="profile picture">
+            <img class="modal-img" src="${medium}" alt="profile picture">
             <h3 id="name" class="modal-name cap">${first} ${last}</h3>
             <p class="modal-text">${email}</p>
             <p class="modal-text cap">${city}</p>
@@ -139,6 +140,12 @@ function searchEmployees(e) {
 function modalizeEmployee(e) {
 
   const addListeners = modalDivContainer => {
+    let id = parseInt(modalDivContainer.firstElementChild.id);
+
+    // replace medium img with large (high-quality) img once loaded
+    modalDivContainer.querySelector('.modal-img')
+      .addEventListener('load', e => e.target.src = employees[id].picture.large);
+
     // allow modal to close
     modalDivContainer.querySelector('#modal-close-btn')
       .addEventListener('click', e => document.body.removeChild(modalDivContainer));
@@ -148,7 +155,6 @@ function modalizeEmployee(e) {
       .addEventListener('click', e => {
         if (e.target.tagName === 'BUTTON') {
           const {className} = e.target;
-          let id = parseInt(modalDivContainer.firstElementChild.id);
 
           // enable 'circular navigation'
           if (className === 'modal-next btn') {
