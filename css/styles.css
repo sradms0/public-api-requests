@@ -16,7 +16,7 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background-color: #2f343f;
 }
 
 header {
@@ -30,13 +30,15 @@ header {
 
 header h1 {
     font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    color: #e7e7e7;
     margin-top: 35px;
 }
 
 .search-input {
     padding: 0.4rem 1rem;
     border: 1px solid rgba(200, 200, 200, 0.9);
+    background: #1c1f27;
+    color: #e7e7e7;
     border-radius: 0.25rem 0 0 0.25rem ;
     max-width: 20rem;
     transition: .4s ease-out;
@@ -87,11 +89,22 @@ header h1 {
     max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
-    background: rgba(245, 245, 245, 0.9);
+    background: #1c1f27;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
+}
+
+.card h3, 
+.modal h3 { 
+    color: #e7e7e7; 
+}
+
+.card p,
+.modal p {
+    color: #888
+
 }
 
 .card-img {
@@ -123,6 +136,14 @@ header h1 {
 /* ===================================== 
    Modal
 ======================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
 
 .modal-container {
     position: fixed;
@@ -130,7 +151,11 @@ header h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(100, 100, 100, .6);
+    animation: fadeIn ease .2s;
+}
+ .removed {
+    animation: fadeOut ease .2s;
 }
 
 .modal {
@@ -140,7 +165,7 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: rgba(255, 255, 255, 1);
+    background: #1c1f27;
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
     transition: .4s ease-out;
@@ -151,11 +176,14 @@ header h1 {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 0, 0, 0.8);
+    color: #626c87;
+    background: none;
     outline: none;
-    border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: none;
+    transition: color .2s;
+}
+.modal-close-btn:hover {
+    color: white;
 }
 
 .modal-img {
@@ -188,7 +216,7 @@ header h1 {
     max-width: 420px;
     padding: 10px 15px 15px;;
     margin: 10px auto auto;
-    background: rgba(255, 255, 255, 1);
+    background: #1c1f27;
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
 }
@@ -199,13 +227,18 @@ header h1 {
     cursor: pointer;
     font-size: 0.85em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
+    color: coral;
     padding: 0.75em 1.5em;
-    background: rgba(0, 0, 0, 0.8);
+    background: none;
     border-radius: 0.35em;
-    transition: .4s ease-out;
+    border-color: #888;
+    transition: .2s ease-out;
     outline: none;
   }
+.modal-btn-container .btn:hover { 
+    background: black;
+    color:white; 
+}
   
 
 /* ===================================== 
@@ -248,12 +281,12 @@ header h1 {
 @media (min-width: 1024px) {
 
     .card:hover {
-        background: rgba(255, 255, 255, 1);
+        background: #282d3a;
         border: 1px solid rgba(50, 50, 50, 0.9);
     }
 
     .card:hover .card-text {
-        color: rgba(25, 25, 25, 1); 
+        color: #000
     }
 
     .btn:hover {

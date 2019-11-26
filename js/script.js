@@ -105,7 +105,10 @@
 
       // allow modal to close
       modalDivContainer.querySelector('#modal-close-btn')
-        .addEventListener('click', e => document.body.removeChild(modalDivContainer));
+        .addEventListener('click', e => {
+          modalDivContainer.classList.add('removed');
+          setTimeout( () => { document.body.removeChild(modalDivContainer); }, 100);
+        });
 
       // allow modal to navigate
       modalDivContainer.querySelector('.modal-btn-container')
